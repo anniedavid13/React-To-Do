@@ -1,19 +1,20 @@
-import React from 'react';
+
 import { Header } from './components/header';
 import './App.css';
 import { Outlet } from 'react-router-dom';
-import { db } from './firebase';
+
+import Container from '@mui/material/Container';
+
 function App() {
   return (
-    <div className="container">
+    <Container maxWidth="sm">
       <Header />
-      <main>
-      <Outlet />
-      </main>
-      <footer>
-        &copy; 2023
-      </footer>
-    </div>
+        <main>
+          <Outlet />
+        </main>
+        <footer>
+        </footer>
+    </Container>
   );
 }
 

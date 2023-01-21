@@ -1,103 +1,113 @@
 import React, { ChangeEvent, useContext, useState } from "react";
+import Card from '@mui/material/Card';
+import CardActions from '@mui/material/CardActions';
+import CardContent from '@mui/material/CardContent';
 import { getAuth, signInWithPopup, GoogleAuthProvider, User } from "firebase/auth";
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
 import { createUserWithEmailAndPassword, signInWithEmailAndPassword } from "firebase/auth";
 import { AuthContext } from "../providers/auth";
+import { useNavigate } from 'react-router-dom';
 const provider = new GoogleAuthProvider();
 const auth = getAuth();
 
+
+
 export const LoginPage = () => {
-  
-    const [email, setEmail] = useState('');
-    const [password, setPassword] = useState('');
-    const {user,setUser} = useContext(AuthContext)
-    const setEmailValue = (event: ChangeEvent<HTMLInputElement>) => {
-        setEmail(event.target.value);
-            };
-    
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const { setUser } = useContext(AuthContext);
+  const navigate = useNavigate();
 
-    const setPasswordValue = (event: ChangeEvent<HTMLInputElement>) => {
-        setPassword(event.target.value);
-            };
-    
+  const setEmailValue = (event: ChangeEvent<HTMLInputElement>) => {
+      setEmail(event.target.value);
+  };
 
-    
-        const signInWithGoogle= () => {
-            signInWithPopup(auth, provider)
-                .then((result) => {
-              // This gives you a Google Access Token. You can use it to access the Google API.
-                const credential = GoogleAuthProvider.credentialFromResult(result);
-                const token = credential?.accessToken;
-                // The signed-in user info.
-                const user = result.user;
-                setUser(user);
-                // ...
-            })
-            .catch((error) => {
-                console.log(error);
-              // Handle Errors here.
-                const errorCode = error.code;
-                const errorMessage = error.message;
-                // The email of the user's account used.
-                const email = error.customData.email;
-                // The AuthCredential type that was used.
-                const credential = GoogleAuthProvider.credentialFromError(error);
+  const setPasswordValue = (event: ChangeEvent<HTMLInputElement>) => {
+      setPassword(event.target.value);
+  };
+
+  const signInWithGoogle = () => {
+      signInWithPopup(auth, provider)
+          .then((result) => {
+              // The signed-in user info.
+              const user = result.user;
+              if (user && setUser) {
+                  setUser(user);
+                  navigate('/');
+              }
+
               // ...
-            });
-            //...
-        };
+          })
+          .catch((error) => {
+              console.log(error);
+          });
+  };
 
-        const signUp = () => {
-          const auth = getAuth();
-          createUserWithEmailAndPassword(auth, email, password)
-            .then((userCredential) => {
-              // Signed in 
+  const signUp = () => {
+      createUserWithEmailAndPassword(auth, email, password)
+          .then((userCredential) => {
+              // Signed in
               const user = userCredential.user;
-              setUser(user);
-              // ...
-            })
-            .catch((error) => {
-              const errorCode = error.code;
-              const errorMessage = error.message;
-              // ..
-            });        
-        };
+              if (user && setUser) {
+                  setUser(user);
+                  navigate('/');
+              }
 
-        const loginWithEmailAndPassword = () => {
-          const auth = getAuth();
-          signInWithEmailAndPassword(auth, email, password)
-            .then((userCredential) => {
-              // Signed in 
+              // ...
+          })
+          .catch((error) => {
+              console.log(error);
+          });
+  };
+
+  const loginWithEmailAndPassword = () => {
+      signInWithEmailAndPassword(auth, email, password)
+          .then((userCredential) => {
+              // Signed in
               const user = userCredential.user;
-              setUser(user);
-              // ...
-            })
-            .catch((error) => {
-              const errorCode = error.code;
-              const errorMessage = error.message;
-            });
-                
-        };
+              if (user && setUser) {
+                  setUser(user);
+                  navigate('/');
+              }
+          })
+          .catch((error) => {
+              console.log(error);
+          });
+  };
 
-    return( 
-    <div>      
-        <TextField id="filled-basic" 
-        value={email}
-        onChange={setEmailValue} 
-        label="Email"
-        variant="filled" 
-        /> 
-        <TextField id="filled-basic" 
-        value={password}
-        type="password"
-        onChange={setPasswordValue} 
-        label="Password"
-        variant="filled" />
-        <Button variant="text" onClick={signUp}>SignUp</Button>
-        <Button variant="text" onClick={loginWithEmailAndPassword}>Login</Button>
-        <Button variant="text" onClick={signInWithGoogle}>Login with Google</Button>
-        {user&& <h2>{user?.displayName}</h2>}
-    </div>
-    );
-}
+  return (
+      <Card>
+          <CardContent sx={{ '& .MuiTextField-root': { mb: 2 } }}>
+              <TextField
+                  id="filled-basic"
+                  value={email}
+                  onChange={setEmailValue}
+                  fullWidth
+                  label="Email"
+                  variant="filled"
+              />
+              <TextField
+                  id="filled-basic"
+                  label="Password"
+                  value={password}
+                  fullWidth
+                  type="password"
+                  onChange={setPasswordValue}
+                  variant="filled"
+              />
+          </CardContent>
+          <CardActions>
+              <Button color="secondary" variant="text" onClick={signUp}>
+                  Signup
+              </Button>
+              <Button variant="text" onClick={loginWithEmailAndPassword}>
+                  Login
+              </Button>
+              <Button variant="text" onClick={signInWithGoogle}>
+                  Login with Google
+              </Button>
+          </CardActions>
+      </Card>
+  );
+};

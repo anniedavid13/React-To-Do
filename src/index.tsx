@@ -4,13 +4,19 @@ import './index.css';
 import reportWebVitals from './reportWebVitals';
 import { AppRouterProvider } from './components/providers/routes';
 import { AuthProvider } from './components/providers/auth';
+import { AppThemeProvider } from './components/providers/themes';
+import CssBaseline from '@mui/material/CssBaseline';
+
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
 );
 root.render(
   <React.StrictMode>
     <AuthProvider>
-      <AppRouterProvider />
+      <AppThemeProvider>
+        <CssBaseline />
+        <AppRouterProvider />
+      </AppThemeProvider>
     </AuthProvider>
   </React.StrictMode>
 );
