@@ -8,7 +8,7 @@ Getting Started
 - Responsive design for optimal viewing on various devices
 - Dynamic rendering of my portfolio items using React components
 - Clean and modern user interface
-- Option to view the source code of each project
+
 
 ## Getting Started
 
@@ -27,7 +27,7 @@ These instructions will get you a copy of the project up and running on your loc
 
 2. Navigate to the project directory:
 
-### cd aMoviesReact-to-do
+### cd React-to-do
 
 3.Install the required dependencies:
 
@@ -64,3 +64,4 @@ LinkedIn: https://www.linkedin.com/in/annie-david-b36431215/
 ## Thank you for visiting my portfolio!
 
 
+![web6](https://user-images.githubusercontent.com/91792578/217996315-19944eab-0711-4f81-b924-238b4facec14.png)
