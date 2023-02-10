@@ -1,6 +1,4 @@
-This is a to-do app made for both laptop/desktop and mobile browsers using typescript, React.Js, and FireBase
-
-# aMovies
+# React-to-do
 This is a simple to-do application built with TypeScript, React.js, and Firebase. The app allows users to create and manage their to-do tasks in real-time.
 
 Getting Started
