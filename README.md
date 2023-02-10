@@ -61,7 +61,7 @@ Email: anniedavid407@gmail.com
 LinkedIn: https://www.linkedin.com/in/annie-david-b36431215/
 
 
-## Thank you for visiting my portfolio!
+## Thank you for visiting!
 
 
 ![web6](https://user-images.githubusercontent.com/91792578/217996315-19944eab-0711-4f81-b924-238b4facec14.png)
