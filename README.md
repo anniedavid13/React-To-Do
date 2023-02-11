@@ -6,7 +6,7 @@ Getting Started
 
 ## Features
 - Responsive design for optimal viewing on various devices
-- Dynamic rendering of my portfolio items using React components
+
 - Clean and modern user interface
 
 
